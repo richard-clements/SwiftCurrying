@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal func curry10<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10) -> Y) -> (X10) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry10<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10) -> Y) -> (X10) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x10 in
         { x9 in
             { x8 in
@@ -31,7 +31,7 @@ internal func curry10<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escapin
     }
 }
 
-internal func curry9<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9) -> Y) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry9<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9) -> Y) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x9 in
         { x8 in
             { x7 in
@@ -53,7 +53,7 @@ internal func curry9<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1,
     }
 }
 
-internal func curry8<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8) -> Y) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry8<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8) -> Y) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x8 in
         { x7 in
             { x6 in
@@ -73,7 +73,7 @@ internal func curry8<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2,
     }
 }
 
-internal func curry7<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7) -> Y) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry7<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7) -> Y) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x7 in
         { x6 in
             { x5 in
@@ -91,7 +91,7 @@ internal func curry7<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3,
     }
 }
 
-internal func curry6<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6) -> Y) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry6<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6) -> Y) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x6 in
         { x5 in
             { x4 in
@@ -107,7 +107,7 @@ internal func curry6<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4,
     }
 }
 
-internal func curry5<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5) -> Y) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry5<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5) -> Y) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x5 in
         { x4 in
             { x3 in
@@ -121,7 +121,7 @@ internal func curry5<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5)
     }
 }
 
-internal func curry4<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry4<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
     { x4 in
         { x3 in
             { x2 in
@@ -133,7 +133,7 @@ internal func curry4<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -
     }
 }
 
-internal func curry3<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X3) -> (X2) -> (X1) -> Y {
+private func curry3<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X3) -> (X2) -> (X1) -> Y {
     { x3 in
         { x2 in
             { x1 in
@@ -143,7 +143,7 @@ internal func curry3<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X3) -
     }
 }
 
-internal func curry2<X1, X2, Y>(_ fn: @escaping (X1, X2) -> Y) -> (X2) -> (X1) -> Y {
+private func curry2<X1, X2, Y>(_ fn: @escaping (X1, X2) -> Y) -> (X2) -> (X1) -> Y {
     { x2 in
         { x1 in
             fn(x1, x2)
