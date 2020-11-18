@@ -1,0 +1,34 @@
+import XCTest
+import SwiftCheck
+@testable import SwiftCurry
+%{
+max_arguments = 20
+}%
+
+final class CurryTests: XCTestCase {
+% for argument_count in range(2, max_arguments + 1):
+    func testCurry${argument_count}() {
+        %{
+        argument_names = ", ".join(map(lambda x: "x%s: Bool" % x, range(0, argument_count)))
+        function_return = " && ".join(map(lambda x: "x%s" % x, range(0, argument_count)))
+        }%
+        func testingFunction(${argument_names}) -> Bool {
+            ${function_return}
+        }
+        %{
+        input_parameters = "".join(map(lambda x: "(true)", range(0, argument_count)))
+        }%
+        XCTAssertTrue(curry(testingFunction)${input_parameters})
+        
+        let generator = Gen
+            .compose { composer -> (${", ".join(map(lambda x: "Bool", range(0, argument_count)))}) in
+                (${", ".join(map(lambda x: "composer.generate()", range(0, argument_count)))})
+            }
+            .suchThat { !(${" && ".join(map(lambda x: "$0.%s" % x, range(0, argument_count)))}) }
+        
+        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
+            !curry(testingFunction)${"".join(map(lambda x: "($0.%s)" % x, range(0, argument_count)))}
+        }
+    }
+%end
+}
