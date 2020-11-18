@@ -33,5 +33,4 @@ ${tabs}fn(${", ".join(argument_names)})
 ${tabs}}
     %end
 }
-
 %end

@@ -21,6 +21,4 @@ func reverse<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_
         fn(${argument_names})
     }
 }
-
 %end
-
