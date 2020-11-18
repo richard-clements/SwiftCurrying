@@ -35,3 +35,13 @@ final class CurryTests: XCTestCase {
     }
 %end
 }
+
+extension CurryTests {
+
+    static var allTests = [
+        % for argument_count in range(2, max_arguments + 1):
+        ("testCurry${argument_count}", testCurry${argument_count}),
+        % end
+    ]
+
+}

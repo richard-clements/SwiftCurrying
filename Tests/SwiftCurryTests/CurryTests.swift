@@ -148,3 +148,19 @@ final class CurryTests: XCTestCase {
         }
     }
 }
+
+extension CurryTests {
+
+    static var allTests = [
+        ("testCurry2", testCurry2),
+        ("testCurry3", testCurry3),
+        ("testCurry4", testCurry4),
+        ("testCurry5", testCurry5),
+        ("testCurry6", testCurry6),
+        ("testCurry7", testCurry7),
+        ("testCurry8", testCurry8),
+        ("testCurry9", testCurry9),
+        ("testCurry10", testCurry10),
+    ]
+
+}

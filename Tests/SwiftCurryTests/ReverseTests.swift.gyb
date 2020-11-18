@@ -50,3 +50,13 @@ final class ReverseTests: XCTestCase {
     }
 %end
 }
+
+extension ReverseTests {
+
+    static var allTests = [
+        % for argument_count in range(2, max_arguments + 1):
+        ("testReverse${argument_count}", testReverse${argument_count}),
+        % end
+    ]
+    
+}

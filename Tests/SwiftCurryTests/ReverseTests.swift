@@ -142,3 +142,19 @@ final class ReverseTests: XCTestCase {
         }
     }
 }
+
+extension ReverseTests {
+
+    static var allTests = [
+        ("testReverse2", testReverse2),
+        ("testReverse3", testReverse3),
+        ("testReverse4", testReverse4),
+        ("testReverse5", testReverse5),
+        ("testReverse6", testReverse6),
+        ("testReverse7", testReverse7),
+        ("testReverse8", testReverse8),
+        ("testReverse9", testReverse9),
+        ("testReverse10", testReverse10),
+    ]
+    
+}
