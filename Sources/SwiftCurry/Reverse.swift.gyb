@@ -16,9 +16,9 @@ param_types = list(map(param_types_list, range(2, max_arguments + 1)))
     argument_names = ", ".join(list(map(lambda x: x.lower(), param_list)))
     reversed_argument_names = ", ".join(list(map(lambda x: x.lower(), reversed(param_list))))
     }%
-func curry<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} {
+func reverse<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} {
     { ${reversed_argument_names} in
-        fn(argument_names)
+        fn(${argument_names})
     }
 }
 
