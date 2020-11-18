@@ -1,0 +1,26 @@
+import Foundation
+%{
+max_arguments = 20
+
+def param_types_list(arguments):
+    return list(map(lambda x: "X%d" % (x + 1), range(0, arguments)))
+
+param_types = list(map(param_types_list, range(2, max_arguments + 1)))
+}%
+
+% for param_list in param_types:
+    %{
+    generics = ", ".join(param_list + ["Y"])
+    arguments_list = ", ".join(param_list)
+    return_function = ("(%s) -> Y" % ", ".join(reversed(param_list)))
+    argument_names = ", ".join(list(map(lambda x: x.lower(), param_list)))
+    reversed_argument_names = ", ".join(list(map(lambda x: x.lower(), reversed(param_list))))
+    }%
+func curry<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} {
+    { ${reversed_argument_names} in
+        fn(argument_names)
+    }
+}
+
+%end
+
