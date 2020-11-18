@@ -1,24 +1,37 @@
+import Foundation
 %{
-max_arguments = 10
+max_arguments = 20
 
 def param_types_list(arguments):
     return list(map(lambda x: "X%d" % (x + 1), range(0, arguments)))
 
-param_types = list(map(param_types_list, range(2, max_arguments)))
+param_types = list(map(param_types_list, range(2, max_arguments + 1)))
 }%
 
 % for param_list in param_types:
+    %{
     generics = ", ".join(param_list + ["Y"])
     arguments_list = ", ".join(param_list)
     return_function = " -> ".join(map(lambda x: "(%s)" % x, param_list))
     argument_names = list(map(lambda x: x.lower(), param_list))
-    func curry<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} -> Y {
+    }%
+func curry<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} -> Y {
     % for index in range(0, len(argument_names)):
-        { ${argument_names[index]} in
+        %{
+        tabs = "".join(map(lambda x: "\t", range(0, index + 1)))
+        }%
+${tabs}{ ${argument_names[index]} in
     %end
-    fn(${", ".join(argument_names)})
+%{
+tabs = "".join(map(lambda x: "\t", range(0, len(argument_names) + 1)))
+}%
+${tabs}fn(${", ".join(argument_names)})
     % for index in reversed(range(0, len(argument_names))):
-        }
+        %{
+        tabs = "".join(map(lambda x: "\t", reversed(range(0, index + 1))))
+        }%
+${tabs}}
     %end
-    }
+}
+
 %end

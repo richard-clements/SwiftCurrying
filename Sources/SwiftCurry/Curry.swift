@@ -1,188 +1,496 @@
-//
-//  Curry.swift
-//  
-//
-//  Created by Richard Clements on 17/11/2020.
-//
-
 import Foundation
 
-private func curry10<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10) -> Y) -> (X10) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x10 in
-        { x9 in
-            { x8 in
-                { x7 in
-                    { x6 in
-                        { x5 in
-                            { x4 in
-                                { x3 in
-                                    { x2 in
-                                        { x1 in
-                                            fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, Y>(_ fn: @escaping (X1, X2) -> Y) -> (X1) -> (X2) -> Y {
+	{ x1 in
+		{ x2 in
+			fn(x1, x2)
+		}
+	}
 }
 
-private func curry9<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9) -> Y) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x9 in
-        { x8 in
-            { x7 in
-                { x6 in
-                    { x5 in
-                        { x4 in
-                            { x3 in
-                                { x2 in
-                                    { x1 in
-                                        fn(x1, x2, x3, x4, x5, x6, x7, x8, x9)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X1) -> (X2) -> (X3) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				fn(x1, x2, x3)
+			}
+		}
+	}
 }
 
-private func curry8<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8) -> Y) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x8 in
-        { x7 in
-            { x6 in
-                { x5 in
-                    { x4 in
-                        { x3 in
-                            { x2 in
-                                { x1 in
-                                    fn(x1, x2, x3, x4, x5, x6, x7, x8)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					fn(x1, x2, x3, x4)
+				}
+			}
+		}
+	}
 }
 
-private func curry7<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7) -> Y) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x7 in
-        { x6 in
-            { x5 in
-                { x4 in
-                    { x3 in
-                        { x2 in
-                            { x1 in
-                                fn(x1, x2, x3, x4, x5, x6, x7)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						fn(x1, x2, x3, x4, x5)
+					}
+				}
+			}
+		}
+	}
 }
 
-private func curry6<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6) -> Y) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x6 in
-        { x5 in
-            { x4 in
-                { x3 in
-                    { x2 in
-                        { x1 in
-                            fn(x1, x2, x3, x4, x5, x6)
-                        }
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							fn(x1, x2, x3, x4, x5, x6)
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-private func curry5<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5) -> Y) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x5 in
-        { x4 in
-            { x3 in
-                { x2 in
-                    { x1 in
-                        fn(x1, x2, x3, x4, x5)
-                    }
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								fn(x1, x2, x3, x4, x5, x6, x7)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-private func curry4<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    { x4 in
-        { x3 in
-            { x2 in
-                { x1 in
-                    fn(x1, x2, x3, x4)
-                }
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									fn(x1, x2, x3, x4, x5, x6, x7, x8)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-private func curry3<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X3) -> (X2) -> (X1) -> Y {
-    { x3 in
-        { x2 in
-            { x1 in
-                fn(x1, x2, x3)
-            }
-        }
-    }
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										fn(x1, x2, x3, x4, x5, x6, x7, x8, x9)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-private func curry2<X1, X2, Y>(_ fn: @escaping (X1, X2) -> Y) -> (X2) -> (X1) -> Y {
-    { x2 in
-        { x1 in
-            fn(x1, x2)
-        }
-    }
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10)
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10) -> Y) -> (X10) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry10(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11)
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9) -> Y) -> (X9) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry9(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, X6, X7, X8, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8) -> Y) -> (X8) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry8(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13)
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, X6, X7, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7) -> Y) -> (X7) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry7(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14)
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, X6, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6) -> Y) -> (X6) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry6(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15)
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, X5, Y>(_ fn: @escaping (X1, X2, X3, X4, X5) -> Y) -> (X5) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry5(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> (X16) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																{ x16 in
+																	fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16)
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, X4, Y>(_ fn: @escaping (X1, X2, X3, X4) -> Y) -> (X4) -> (X3) -> (X2) -> (X1) -> Y {
-    curry4(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> (X16) -> (X17) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																{ x16 in
+																	{ x17 in
+																		fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17)
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, X3, Y>(_ fn: @escaping (X1, X2, X3) -> Y) -> (X3) -> (X2) -> (X1) -> Y {
-    curry3(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> (X16) -> (X17) -> (X18) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																{ x16 in
+																	{ x17 in
+																		{ x18 in
+																			fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18)
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-public func curry<X1, X2, Y>(_ fn: @escaping (X1, X2) -> Y) -> (X2) -> (X1) -> Y {
-    curry2(fn)
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> (X16) -> (X17) -> (X18) -> (X19) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																{ x16 in
+																	{ x17 in
+																		{ x18 in
+																			{ x19 in
+																				fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19)
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
+func curry<X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20, Y>(_ fn: @escaping (X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20) -> Y) -> (X1) -> (X2) -> (X3) -> (X4) -> (X5) -> (X6) -> (X7) -> (X8) -> (X9) -> (X10) -> (X11) -> (X12) -> (X13) -> (X14) -> (X15) -> (X16) -> (X17) -> (X18) -> (X19) -> (X20) -> Y {
+	{ x1 in
+		{ x2 in
+			{ x3 in
+				{ x4 in
+					{ x5 in
+						{ x6 in
+							{ x7 in
+								{ x8 in
+									{ x9 in
+										{ x10 in
+											{ x11 in
+												{ x12 in
+													{ x13 in
+														{ x14 in
+															{ x15 in
+																{ x16 in
+																	{ x17 in
+																		{ x18 in
+																			{ x19 in
+																				{ x20 in
+																					fn(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20)
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
