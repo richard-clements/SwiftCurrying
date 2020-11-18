@@ -24,147 +24,173 @@ extension Matrix: Arbitrary {
 }
 
 final class ReverseTests: XCTestCase {
-    
-    func testReverse10() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix, f: Matrix, g: Matrix, h: Matrix, i: Matrix, j: Matrix) -> Matrix {
-            return a * b * c * d * e * f * g * h * i * j
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4, f: matrices.5, g: matrices.6, h: matrices.7, i: matrices.8, j: matrices.9) == reverse(function)(matrices.9, matrices.8, matrices.7, matrices.6, matrices.5, matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse9() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix, f: Matrix, g: Matrix, h: Matrix, i: Matrix) -> Matrix {
-            return a * b * c * d * e * f * g * h * i
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4, f: matrices.5, g: matrices.6, h: matrices.7, i: matrices.8) == reverse(function)(matrices.8, matrices.7, matrices.6, matrices.5, matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse8() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix, f: Matrix, g: Matrix, h: Matrix) -> Matrix {
-            return a * b * c * d * e * f * g * h
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4, f: matrices.5, g: matrices.6, h: matrices.7) == reverse(function)(matrices.7, matrices.6, matrices.5, matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse7() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix, f: Matrix, g: Matrix) -> Matrix {
-            return a * b * c * d * e * f * g
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4, f: matrices.5, g: matrices.6) == reverse(function)(matrices.6, matrices.5, matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse6() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix, f: Matrix) -> Matrix {
-            return a * b * c * d * e * f
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4, f: matrices.5) == reverse(function)(matrices.5, matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse5() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix, e: Matrix) -> Matrix {
-            return a * b * c * d * e
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3, e: matrices.4) == reverse(function)(matrices.4, matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse4() {
-        func function(a: Matrix, b: Matrix, c: Matrix, d: Matrix) -> Matrix {
-            return a * b * c * d
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2, d: matrices.3) == reverse(function)(matrices.3, matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
-    func testReverse3() {
-        func function(a: Matrix, b: Matrix, c: Matrix) -> Matrix {
-            return a * b * c
-        }
-        
-        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix) in
-            (composer.generate(), composer.generate(), composer.generate())
-        }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1, c: matrices.2) == reverse(function)(matrices.2, matrices.1, matrices.0)
-        }
-    }
-    
     func testReverse2() {
-        func function(a: Matrix, b: Matrix) -> Matrix {
-            return a * b
+        func testingFunction(x0: Matrix, x1: Matrix) -> Matrix {
+            x0 * x1
         }
         
         let generator = Gen.compose { composer -> (Matrix, Matrix) in
             (composer.generate(), composer.generate())
         }
-        
-        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) { matrices in
-            function(a: matrices.0, b: matrices.1) == reverse(function)(matrices.1, matrices.0)
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1) == reverse(testingFunction)($0.1, $0.0)
         }
     }
+    func testReverse3() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix) -> Matrix {
+            x0 * x1 * x2
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate())
+        }
     
-}
-
-extension ReverseTests {
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2) == reverse(testingFunction)($0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse4() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
     
-    static var allTests = [
-        ("testReverse10", testReverse10),
-        ("testReverse9", testReverse9),
-        ("testReverse8", testReverse8),
-        ("testReverse7", testReverse7),
-        ("testReverse6", testReverse6),
-        ("testReverse5", testReverse5),
-        ("testReverse4", testReverse4),
-        ("testReverse3", testReverse3),
-        ("testReverse2", testReverse2)
-    ]
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3) == reverse(testingFunction)($0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse5() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
     
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4) == reverse(testingFunction)($0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse6() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5) == reverse(testingFunction)($0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse7() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6) == reverse(testingFunction)($0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse8() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7) == reverse(testingFunction)($0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse9() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8) == reverse(testingFunction)($0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse10() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix, x9: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8 * x9
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8, x9: $0.9) == reverse(testingFunction)($0.9, $0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse11() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix, x9: Matrix, x10: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8 * x9 * x10
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8, x9: $0.9, x10: $0.10) == reverse(testingFunction)($0.10, $0.9, $0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse12() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix, x9: Matrix, x10: Matrix, x11: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8 * x9 * x10 * x11
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8, x9: $0.9, x10: $0.10, x11: $0.11) == reverse(testingFunction)($0.11, $0.10, $0.9, $0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse13() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix, x9: Matrix, x10: Matrix, x11: Matrix, x12: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8 * x9 * x10 * x11 * x12
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8, x9: $0.9, x10: $0.10, x11: $0.11, x12: $0.12) == reverse(testingFunction)($0.12, $0.11, $0.10, $0.9, $0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
+    func testReverse14() {
+        func testingFunction(x0: Matrix, x1: Matrix, x2: Matrix, x3: Matrix, x4: Matrix, x5: Matrix, x6: Matrix, x7: Matrix, x8: Matrix, x9: Matrix, x10: Matrix, x11: Matrix, x12: Matrix, x13: Matrix) -> Matrix {
+            x0 * x1 * x2 * x3 * x4 * x5 * x6 * x7 * x8 * x9 * x10 * x11 * x12 * x13
+        }
+        
+        let generator = Gen.compose { composer -> (Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix, Matrix) in
+            (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(x0: $0.0, x1: $0.1, x2: $0.2, x3: $0.3, x4: $0.4, x5: $0.5, x6: $0.6, x7: $0.7, x8: $0.8, x9: $0.9, x10: $0.10, x11: $0.11, x12: $0.12, x13: $0.13) == reverse(testingFunction)($0.13, $0.12, $0.11, $0.10, $0.9, $0.8, $0.7, $0.6, $0.5, $0.4, $0.3, $0.2, $0.1, $0.0)
+        }
+    }
 }

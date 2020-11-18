@@ -2,7 +2,10 @@ import XCTest
 import SwiftCheck
 @testable import SwiftCurry
 %{
-max_arguments = 20
+from environs import Env
+env = Env()
+env.read_env()
+max_arguments = int(env("MAX_ARGUMENTS"))
 }%
 
 final class CurryTests: XCTestCase {

@@ -1,0 +1,52 @@
+import XCTest
+import SwiftCheck
+import simd
+@testable import SwiftCurry
+%{
+from environs import Env
+env = Env()
+env.read_env()
+max_arguments = int(env("MAX_ARGUMENTS"))
+}%
+
+public typealias Matrix = simd_float2x2
+typealias Column = SIMD2
+
+extension Matrix: Arbitrary {
+    
+    static func *(lhs: Matrix, rhs: Matrix) -> Matrix {
+        simd_mul(lhs, rhs)
+    }
+    
+    public static var arbitrary: Gen<Matrix> {
+        Gen.compose {
+            Matrix([
+                Column($0.generate(), $0.generate()),
+                Column($0.generate(), $0.generate())
+            ])
+        }
+    }
+    
+}
+
+final class ReverseTests: XCTestCase {
+% for argument_count in range(2, max_arguments + 1):
+    %{
+    argument_names = ", ".join(map(lambda x: "x%s: Matrix" % x, range(0, argument_count)))
+    function_return = " * ".join(map(lambda x: "x%s" % x, range(0, argument_count)))
+    }%
+    func testReverse${argument_count}() {
+        func testingFunction(${argument_names}) -> Matrix {
+            ${function_return}
+        }
+        
+        let generator = Gen.compose { composer -> (${", ".join(map(lambda x: "Matrix", range(0, argument_count)))}) in
+            (${", ".join(map(lambda x: "composer.generate()", range(0, argument_count)))})
+        }
+    
+        property("Matrix multiplication is the same with reversed items") <- forAllNoShrink(generator) {
+            testingFunction(${", ".join(map(lambda x: "x%s: $0.%s" % (x, x), range(0, argument_count)))}) == reverse(testingFunction)(${", ".join(map(lambda x: "$0.%s" % x, reversed(range(0, argument_count))))})
+        }
+    }
+%end
+}

@@ -1,6 +1,9 @@
 import Foundation
 %{
-max_arguments = 20
+from environs import Env
+env = Env()
+env.read_env()
+max_arguments = int(env("MAX_ARGUMENTS"))
 
 def param_types_list(arguments):
     return list(map(lambda x: "X%d" % (x + 1), range(0, arguments)))
