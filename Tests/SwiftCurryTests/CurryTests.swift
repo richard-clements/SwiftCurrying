@@ -1,151 +1,60 @@
 import XCTest
-import SwiftCheck
 @testable import SwiftCurry
 
 final class CurryTests: XCTestCase {
     func testCurry2() {
-        func testingFunction(x0: Bool, x1: Bool) -> Bool {
-            x0 && x1
+        func testingFunction(x0: String, x1: String) -> String {
+            "\(x0)\(x1)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool) in
-                (composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1"), "01")
     }
     func testCurry3() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool) -> Bool {
-            x0 && x1 && x2
+        func testingFunction(x0: String, x1: String, x2: String) -> String {
+            "\(x0)\(x1)\(x2)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2"), "012")
     }
     func testCurry4() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool) -> Bool {
-            x0 && x1 && x2 && x3
+        func testingFunction(x0: String, x1: String, x2: String, x3: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3"), "0123")
     }
     func testCurry5() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4"), "01234")
     }
     func testCurry6() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool, x5: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4 && x5
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String, x5: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)\(x5)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4 && $0.5) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)($0.5)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4")("5"), "012345")
     }
     func testCurry7() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool, x5: Bool, x6: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4 && x5 && x6
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String, x5: String, x6: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)\(x5)\(x6)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4 && $0.5 && $0.6) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)($0.5)($0.6)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4")("5")("6"), "0123456")
     }
     func testCurry8() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool, x5: Bool, x6: Bool, x7: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4 && x5 && x6 && x7
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String, x5: String, x6: String, x7: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)\(x5)\(x6)\(x7)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4 && $0.5 && $0.6 && $0.7) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)($0.5)($0.6)($0.7)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4")("5")("6")("7"), "01234567")
     }
     func testCurry9() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool, x5: Bool, x6: Bool, x7: Bool, x8: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4 && x5 && x6 && x7 && x8
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String, x5: String, x6: String, x7: String, x8: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)\(x5)\(x6)\(x7)\(x8)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4 && $0.5 && $0.6 && $0.7 && $0.8) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)($0.5)($0.6)($0.7)($0.8)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4")("5")("6")("7")("8"), "012345678")
     }
     func testCurry10() {
-        func testingFunction(x0: Bool, x1: Bool, x2: Bool, x3: Bool, x4: Bool, x5: Bool, x6: Bool, x7: Bool, x8: Bool, x9: Bool) -> Bool {
-            x0 && x1 && x2 && x3 && x4 && x5 && x6 && x7 && x8 && x9
+        func testingFunction(x0: String, x1: String, x2: String, x3: String, x4: String, x5: String, x6: String, x7: String, x8: String, x9: String) -> String {
+            "\(x0)\(x1)\(x2)\(x3)\(x4)\(x5)\(x6)\(x7)\(x8)\(x9)"
         }
-        XCTAssertTrue(curry(testingFunction)(true)(true)(true)(true)(true)(true)(true)(true)(true)(true))
-        
-        let generator = Gen
-            .compose { composer -> (Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool) in
-                (composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate(), composer.generate())
-            }
-            .suchThat { !($0.0 && $0.1 && $0.2 && $0.3 && $0.4 && $0.5 && $0.6 && $0.7 && $0.8 && $0.9) }
-        
-        property("Curry function returns false if any argument is false") <- forAllNoShrink(generator) {
-            !curry(testingFunction)($0.0)($0.1)($0.2)($0.3)($0.4)($0.5)($0.6)($0.7)($0.8)($0.9)
-        }
+        XCTAssertEqual(curry(testingFunction)("0")("1")("2")("3")("4")("5")("6")("7")("8")("9"), "0123456789")
     }
 }
 
