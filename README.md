@@ -1,6 +1,6 @@
 # SwiftCurry
 
-![Swift](https://github.com/richard-clements/SwiftCurrying/workflows/Swift/badge.svg)
+![Swift](https://github.com/richard-clements/swift-curry/workflows/Swift/badge.svg)
 
 A package created to allow you to curry `Swift` functions. Given a function `f(x, y)`, then `curry` is a function such that  `curry(f)(y)(x) = f(x, y)`.
 
