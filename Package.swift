@@ -20,9 +20,19 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SwiftCurry",
-            dependencies: []),
+            dependencies: [],
+            exclude: [
+                "Curry.swift.gyb",
+                "Reverse.swift.gyb"
+            ]
+        ),
         .testTarget(
             name: "SwiftCurryTests",
-            dependencies: ["SwiftCurry"]),
+            dependencies: ["SwiftCurry"],
+            exclude: [
+                "CurryTests.swift.gyb",
+                "ReverseTests.swift.gyb"
+            ]
+        ),
     ]
 )
