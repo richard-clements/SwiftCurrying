@@ -6,9 +6,9 @@ env.read_env()
 max_arguments = int(env("MAX_ARGUMENTS"))
 
 def param_types_list(arguments):
-    return list(map(lambda x: "X%d" % (x + 1), range(0, arguments)))
+    return map(lambda x: "X%d" % (x + 1), range(0, arguments))
 
-param_types = list(map(param_types_list, range(2, max_arguments + 1)))
+param_types = map(param_types_list, range(2, max_arguments + 1))
 }%
 
 % for param_list in param_types:
@@ -16,8 +16,8 @@ param_types = list(map(param_types_list, range(2, max_arguments + 1)))
     generics = ", ".join(param_list + ["Y"])
     arguments_list = ", ".join(param_list)
     return_function = ("(%s) -> Y" % ", ".join(reversed(param_list)))
-    argument_names = ", ".join(list(map(lambda x: x.lower(), param_list)))
-    reversed_argument_names = ", ".join(list(map(lambda x: x.lower(), reversed(param_list))))
+    argument_names = ", ".join(map(lambda x: x.lower(), param_list))
+    reversed_argument_names = ", ".join(map(lambda x: x.lower(), reversed(param_list)))
     }%
 public func reverse<${generics}>(_ fn: @escaping (${arguments_list}) -> Y) -> ${return_function} {
     { ${reversed_argument_names} in

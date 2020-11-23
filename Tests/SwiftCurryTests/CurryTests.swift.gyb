@@ -20,7 +20,7 @@ final class CurryTests: XCTestCase {
         %{
         input_parameters = "".join(map(lambda x: "(\"%d\")" % x, range(0, argument_count)))
         }%
-        XCTAssertEqual(curry(testingFunction)${input_parameters}, "${"".join(map(lambda x: str(x), range(0, argument_count)))}")
+        XCTAssertEqual(curry(testingFunction)${input_parameters}, "${"".join(map(lambda x: str(x), reversed(range(0, argument_count))))}")
     }
 %end
 }
